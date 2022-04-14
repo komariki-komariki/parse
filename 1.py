@@ -1,8 +1,10 @@
 from bs4 import BeautifulSoup
 import requests
+from search_dict import HEADERS, KEYWORDS
 from pprint import pprint
 import re
 articles_list = []
+
 
 def text_article():
     HEADERS = {

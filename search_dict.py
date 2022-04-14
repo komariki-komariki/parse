@@ -12,5 +12,5 @@ HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36',
     'sec-ch-ua-mobile': '?0'
 }
-url = 'https://habr.com/ru/all/'
-baseurl = 'https://habr.com/ru/'
+URL = 'https://habr.com/ru/all/'
+BASEURL = 'https://habr.com/ru/'

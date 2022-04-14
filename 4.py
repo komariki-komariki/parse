@@ -22,23 +22,31 @@ def text_article():
     page = requests.get(url, headers=HEADERS).content
     soup = BeautifulSoup(page, "html.parser")
 
-    a = soup.find('div', class_='tm-articles-subpage').find('article', class_="tm-articles-list__item").findAll('a', class_='tm-article-snippet__hubs-item-link')
-    names = soup.find('div', class_='tm-articles-subpage').find('article', class_="tm-articles-list__item").findAll('a', class_="tm-article-snippet__title-link")
-    texts = soup.find('div', class_='tm-articles-subpage').find('article', class_="tm-articles-list__item").findAll('div', class_="article-formatted-body article-formatted-body_version-2")
-    test = soup.find('span', class_='tm-article-snippet__datetime-published').text.strip()
-    print(test)
+    # news = soup.find('div', class_='tm-articles-subpage').find('article', class_="tm-articles-list__item")
+    # names = news.find('a', class_="tm-article-snippet__title-link").text
+    # texts = news.find('div', class_="article-formatted-body article-formatted-body_version-2")
+    # times = news.find('span', class_='tm-article-snippet__datetime-published').text.strip()
+    # times2 = news.find('time')['datetime']
+    # links = news.find('a', class_='tm-article-snippet__title-link')['href']
     test2 = soup.findAll('article', class_="tm-articles-list__item")
-    print(len(test2))
-    #for texts in test2:
+    # tags = news.findAll('a', class_='tm-article-snippet__hubs-item-link')
 
-    # for y in names:
-    #     print(y.text)
-    # for z in texts:
-    #     print(z.text)
-    # for x in a:
-    #     articles_list.append(x.text)
-    # print(articles_list)
 
+    for i in test2:
+        tag_list = []
+        name = i.find('a', class_="tm-article-snippet__title-link").text
+        tags = i.findAll('a', class_='tm-article-snippet__hubs-item-link')
+        for tag in tags:
+            tag_list.append(tag.text.strip())
+        try:
+            texts = i.find('div', class_="article-formatted-body article-formatted-body_version-2").text.strip()
+        except:
+            texts = i.find('div', class_="article-formatted-body article-formatted-body_version-1").text.strip()
+        dates = i.find('time')['datetime']
+        links = baseurl + i.find('a', class_='tm-article-snippet__title-link')['href']
+        articles_list.append([name, dates, tag_list, texts, links])
+
+    pprint(articles_list)
 
 if __name__ == "__main__":
    text_article()
