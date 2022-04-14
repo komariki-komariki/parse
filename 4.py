@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 from pprint import pprint
 import re
+from datetime import datetime
 articles_list = []
 
 def text_article():
@@ -37,14 +38,14 @@ def text_article():
         name = i.find('a', class_="tm-article-snippet__title-link").text
         tags = i.findAll('a', class_='tm-article-snippet__hubs-item-link')
         for tag in tags:
-            tag_list.append(tag.text.strip())
+            tag_list.append(tag.text.replace('*','').strip())
         try:
-            texts = i.find('div', class_="article-formatted-body article-formatted-body_version-2").text.strip()
+            texts = i.find('div', class_="article-formatted-body article-formatted-body_version-2").text.strip().replace('\n','').replace('\xa0','').replace('\r','')
         except:
-            texts = i.find('div', class_="article-formatted-body article-formatted-body_version-1").text.strip()
+            texts = i.find('div', class_="article-formatted-body article-formatted-body_version-1").text.strip().replace('\n','').replace('\xa0','').replace('\r','')
         dates = i.find('time')['datetime']
         links = baseurl + i.find('a', class_='tm-article-snippet__title-link')['href']
-        articles_list.append([name, dates, tag_list, texts, links])
+        articles_list.append([[name], [dates], tag_list, [texts], [links]])
 
     pprint(articles_list)
 

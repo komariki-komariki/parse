@@ -25,7 +25,7 @@ def text_article():
         links = BASEURL + i.find('a', class_='tm-article-snippet__title-link')['href']
         articles_list.append([name, dates, tag_list, texts, links])
 
-    pprint(articles_list)
+    print(articles_list)
 
 
 if __name__ == "__main__":
