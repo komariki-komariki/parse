@@ -25,8 +25,17 @@ def text_article():
         links = BASEURL + i.find('a', class_='tm-article-snippet__title-link')['href']
         articles_list.append([name, dates, tag_list, texts, links])
 
-    print(articles_list)
+def search_words():
+    for search_string in KEYWORDS:
+        for n in range(len(articles_list)):
+            names = "".join(articles_list[n][0])
+            tags = "".join(articles_list[n][2])
+            texts = "".join(articles_list[n][3])
+            if re.findall(f'{search_string}', names) or re.findall(f'{search_string}', tags) or re.findall(
+                    f'{search_string}', texts):
+                return f"{articles_list[n][1]}\n{articles_list[n][0]}\n{articles_list[n][-1]}\n"
 
 
 if __name__ == "__main__":
     text_article()
+    print(search_words())
